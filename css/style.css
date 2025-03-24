@@ -1,0 +1,296 @@
+/* @keyframes rule is used to control the steps in an animation sequence by defining CSS styles for points along the animation sequence. */
+/* I’m defining a new animation called logoGrow that starts small and transparent, and ends up big and visible. */
+@keyframes logoGrow {
+  from {
+    width: 25px;
+    opacity: 0;
+  }
+  to {
+    width: 475px;
+    opacity: 1;
+  }
+}
+
+/* Use the logoGrow animation and take 5 seconds to do it. */
+#logo {
+  animation: logoGrow 5s ease forwards;
+}
+
+body {
+  /* Poppins will be used, but if it fails, serif will be the backup */
+  font-family: "Poppins", serif;
+  /* shows if the image fails or while it’s loading */
+  background-color: #f1f1f1;
+  /*  loads background texture */
+  background-image: url("concrete_seamless.png");
+}
+
+/* This sets up the layout for everything inside the <header>  */
+/* Stack everything inside the <header> vertically (logo, then nav) */
+/* header {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  align-items: center;
+} */
+/* Aligned the logo center too using aligned items. Kept text-align just in case */
+
+/* ----- sticky header combined here---- */
+
+/* starter css file was overriding the sticky nav because of the position relative on header. Specified it more by changing it to body>header and now it works */
+body > header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+/* control how the navigation items are laid out inside the nav block. */
+.nav_links {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Optional: center them horizontally */
+}
+
+/* Header is like the car and the nav links are like the passengers */
+
+/* same color even after being visited */
+/* a:link,  does this have to be the same color too?*/
+nav a:link,
+.nav_links a:link {
+  color: #095256; /* Darker green */
+}
+
+a:visited {
+  color: blue;
+}
+
+/* Step 6 */
+/* Identify the proper selector to style ONLY those header elements that are direct children of a card class. 
+The required styling is the following:
+background: #288088,
+solid 2px border using #45ADAD,
+20px of padding on the top and the bottom
+50px border-radius on the top left and right corners. */
+
+/* .card targets the class and header is the direct child of .card */
+.card > header {
+  /* Find any <header> that is a direct child of an element with the class card, and apply these styles to it. */
+  background: #288088;
+  border: 2px solid #45adad;
+  padding: 20px 0;
+  border-radius: 50px 50px 0 0;
+}
+
+.card {
+  border-top-left-radius: 50px;
+  border-top-right-radius: 50px;
+  overflow: hidden; /* helps the rounding show correctly */
+  /* Anything that spills out of this box = cut it off. */
+}
+
+/* Step 7 and 8 */
+
+/* step 7 break down: Edit the css for the card class to match our example.
+Achieve this by using a flex-property to specify an initial “size” of 450px. */
+
+/* For step 7 - base card styling */
+.card {
+  flex-basis: 450px;
+  display: flex;
+  flex-direction: column;
+  border-top-left-radius: 50px;
+  border-top-right-radius: 50px;
+  max-width: 100%;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+/* For step 8 - pricing container */
+.pricing {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: stretch;
+  justify-content: center;
+  gap: 20px;
+}
+/* Style the images in the gallery class. These elements will have a solid 10px border with a color of #50C7C7, 10px margin on all four sides and a width of 300px. */
+
+/* This is not working I need help */
+
+.gallery {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.gallery img {
+  border: 10px solid #50c7c7;
+  margin: 10px;
+  width: 300px;
+}
+
+/* step 11 */
+/* Edit the css for the header tag (all instances) and the nav_links class to match our example using flex-properties. */
+@media screen and (min-width: 900px) {
+  /* I also specified this because the content centered after changing the header nav to body>header.*/
+  body > header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row;
+  }
+  .card > header {
+    justify-content: left;
+  }
+  .nav_links {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+  }
+
+  .pricing {
+    flex-direction: row;
+    justify-content: center;
+    gap: 20px; /* space between cards */
+    flex-wrap: wrap; /*if the screen gets narrower */
+    align-items: stretch;
+  }
+  .card {
+    flex-basis: 275px;
+    flex: 0 1 275px; /* Don't grow, can shrink, basis 275px */
+  }
+  .card h3 {
+    text-align: left;
+  }
+}
+/* step 12 */
+/* At large screen size (like 1200px):
+
+The three .card boxes are in a row
+
+They are all the same width (275px)
+
+
+/* step 13 sticky navigatiion */
+/* I think the header at the top of the code is overriding this one so it was causing some issues. -- commented out and combined step 13 at the top */
+/* header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background: white;  or match your background 
+} */
+
+/* step 14  */
+/* The logo should appear but not be animated if prefers-reduced-motion is selected in the accessibility preferences. */
+@media (prefers-reduced-motion: reduce) {
+  #logo {
+    animation: none;
+  }
+}
+
+/* View print mode  */
+@media print {
+  body > header {
+    padding: 0px;
+  }
+  /* Step 15: Change the font on your body to Arial with a backup value of Helvetica */
+  body {
+    font-family: Arial, Helvetica;
+    background-image: none; /* Step 16: The background image should be removed */
+  }
+
+  /* the color wasn't right so i added this */
+  * {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  /* Step 17: Edit the nav/nav_links elements so that they are spaced according to the image above */
+  nav {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+  }
+
+  .nav_links {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+  }
+  .nav_item {
+    flex: 1;
+    text-align: center;
+    padding: 0;
+    margin: 0;
+  }
+  a {
+    text-decoration: none;
+    color: #0d4d52; /* Match your regular link color */
+  }
+
+  .nav_item a {
+    text-decoration: underline;
+    color: blue;
+    padding: 0;
+    margin: 0;
+  }
+
+  /* Step 18: Edit the pricing class so that the elements align along the bottom.
+                We don’t care if the cards aren’t the same height. */
+
+  main {
+    padding: 0;
+    margin: 0 auto;
+  }
+  .pricing {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-end; /* align the cards along the bottom */
+    flex-wrap: nowrap; /* crucial: prevent wrapping */
+    gap: 5px;
+  }
+  .card button {
+    margin-top: auto; /* forces bottom alignment of buttons */
+  }
+
+  /* Step 19: The card elements should have a solid 2px border of #45ADAD
+                and use a flex-basis of 325px */
+
+  .card {
+    border: 2px solid #45addd; /* fix border color */
+    flex-basis: 325px; /* professor's requirement */
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box; /* prevents width overflow */
+  }
+
+  /* Step 20: Add the thumbs up entity before each list item
+                (Challenge problem: without using list-style-type) */
+  .card li::before {
+    content: "👍 ";
+  }
+
+  /* Prevent thumbs up from appearing on headers */
+  .card header::before {
+    content: none;
+  }
+
+  /* Step 21: No part of the gallery should be visible */
+  .gallery,
+  #gallery {
+    display: none !important;
+  }
+}
+
+/* submission /git hub automatically navigates to index html and the link is a file path. direct url to your html file  */
